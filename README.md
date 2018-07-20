@@ -41,11 +41,15 @@ The supported options for the LiipUrlAutoConverterBundle are: (put in /app/confi
         linkclass:
         target: _blank
         debugmode: false
+        shortenUrl: false
+        shortenUrlThreshold: 25
 
 
-- "linkClass":  css class that will be added automatically to converted links. default: "" (empty)
-- "target":     browser link target. default: "_blank"
-- "debugMode":  if true, links will be colored with a nasty green color - cool for testing. default: false
+- "linkClass":           css class that will be added automatically to converted links. default: "" (empty)
+- "target":              browser link target. default: "_blank"
+- "debugMode":           if true, links will be colored with a nasty green color - cool for testing. default: false
+- "shortenUrl":          if true, links will be shorten automatically. default: false
+- "shortenUrlThreshold": only shorten urls that are longer than the threshold. default: 25
 
 All settings are optional.
 

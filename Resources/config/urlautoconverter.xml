@@ -16,6 +16,12 @@
             <call method="setDebugMode">
                 <argument>%liip_url_auto_converter.debugmode%</argument>
             </call>
+            <call method="setShortenUrl">
+                <argument>%liip_url_auto_converter.shortenUrl%</argument>
+            </call>
+            <call method="setShortenUrlThreshold">
+                <argument>%liip_url_auto_converter.shortenUrlThreshold%</argument>
+            </call>
         </service>
     </services>
 
