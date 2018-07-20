@@ -18,6 +18,8 @@ class LiipUrlAutoConverterExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('', 'liip_url_auto_converter.linkclass');
         $this->assertParameter('_blank', 'liip_url_auto_converter.target');
         $this->assertParameter(false, 'liip_url_auto_converter.debugmode');
+        $this->assertParameter(false, 'liip_url_auto_converter.shortenUrl');
+        $this->assertParameter(25, 'liip_url_auto_converter.shortenUrlThreshold');
         $this->assertHasDefinition('liip_url_auto_converter.twig.extension');
     }
 
@@ -25,11 +27,13 @@ class LiipUrlAutoConverterExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->configuration = new ContainerBuilder();
         $loader = new LiipUrlAutoConverterExtension();
-        $loader->load(array(array('linkclass' => 'foo', 'target' => 'bar', 'debugmode' => true)), $this->configuration);
+        $loader->load(array(array('linkclass' => 'foo', 'target' => 'bar', 'debugmode' => true, 'shortenUrl' => true, 'shortenUrlThreshold' => 20)), $this->configuration);
 
         $this->assertParameter('foo', 'liip_url_auto_converter.linkclass');
         $this->assertParameter('bar', 'liip_url_auto_converter.target');
         $this->assertParameter(true, 'liip_url_auto_converter.debugmode');
+        $this->assertParameter(true, 'liip_url_auto_converter.shortenUrl');
+        $this->assertParameter(20, 'liip_url_auto_converter.shortenUrlThreshold');
         $this->assertHasDefinition('liip_url_auto_converter.twig.extension');
     }
 

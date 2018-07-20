@@ -8,6 +8,8 @@ class UrlAutoConverterTwigExtension extends \Twig_Extension
     protected $target;
     protected $debugMode;
     protected $debugColor = '#00ff00';
+    protected $shortenUrl;
+    protected $shortenUrlThreshold;
 
     // @codeCoverageIgnoreStart
 
@@ -34,6 +36,16 @@ class UrlAutoConverterTwigExtension extends \Twig_Extension
     public function setDebugColor($color)
     {
         $this->debugColor = $color;
+    }
+
+    public function setShortenUrl($shortenUrl)
+    {
+        $this->shortenUrl = $shortenUrl;
+    }
+
+    public function setShortenUrlThreshold($shortenUrlThreshold)
+    {
+        $this->shortenUrlThreshold = $shortenUrlThreshold;
     }
 
     // @codeCoverageIgnoreEnd
@@ -94,6 +106,17 @@ class UrlAutoConverterTwigExtension extends \Twig_Extension
             $punctuation = $matches[2];
         } else {
             $punctuation = '';
+        }
+
+        // shorten link if option is set
+        if ($this->shortenUrl && filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+            $url = preg_replace('/^(https{0,1}:\/\/|mailto:)(.+)$/', '$2', $urlWithPrefix); // remove schema
+            if (strpos($url, '@') === false && strlen($url) > $this->shortenUrlThreshold) {
+                $parts = explode('/', rtrim($url, '/'));
+                if (count($parts) > 2) {
+                    $url = array_shift($parts) . '/.../' . array_pop($parts);
+                }
+            }
         }
 
         return '<a href="'.$urlWithPrefix.'" class="'.$this->linkClass.'" target="'.$this->target.'"'.$style.'>'.$url.'</a>'.$punctuation;

@@ -27,6 +27,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('linkclass')->defaultValue('')->end()
                 ->scalarNode('target')->defaultValue('_blank')->end()
                 ->scalarNode('debugmode')->defaultFalse()->end()
+                ->scalarNode('shortenUrl')->defaultFalse()->end()
+                ->scalarNode('shortenUrlThreshold')->defaultValue(25)->end()
             ->end();
 
         return $treeBuilder;
